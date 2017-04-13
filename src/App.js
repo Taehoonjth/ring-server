@@ -7,7 +7,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <h1>Ring!</h1>
+      <h1>Ring! Not you but server lol.</h1>
     )
   }
 }
