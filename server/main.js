@@ -4,19 +4,18 @@ import fs from 'fs';
 import wav from 'wav';
 import Speaker from 'speaker';
 
-let bell = fs.createReadStream(__dirname + '/../bell.wav');
-let reader = new wav.Reader();
-reader.on('format', function (format) {
- 
-  // the WAVE header is stripped from the output of the reader 
-  reader.pipe(new Speaker(format));
-});
 
 const app = express();
 
 let port = 3000;
 app.use('/', (req, res, next) => {
-  console.log('Client access!');
+  let bell = fs.createReadStream(__dirname + '/../bell.wav');
+  let reader = new wav.Reader();
+  reader.on('format', function (format) {
+    // the WAVE header is stripped from the output of the reader
+    console.log(format); 
+    reader.pipe(new Speaker(format));
+  });
   bell.pipe(reader);
   next();
 });
